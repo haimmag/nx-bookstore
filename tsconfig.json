@@ -15,7 +15,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@happynrwl1/books/feature": ["libs/books/feature/src/index.ts"],
+      "@happynrwl1/ui": ["libs/ui/src/index.ts"],
+      "@happynrwl1/books/data-access": ["libs/books/data-access/src/index.ts"],
+      "@happynrwl1/books/ui": ["libs/books/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

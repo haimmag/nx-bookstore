@@ -8,10 +8,22 @@
     "nx.json": "*"
   },
   "projects": {
-    "react-ts": {
+    "bookstore": {
       "tags": []
     },
-    "react-ts-e2e": {
+    "bookstore-e2e": {
+      "tags": []
+    },
+    "books-feature": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
+    },
+    "books-data-access": {
+      "tags": []
+    },
+    "books-ui": {
       "tags": []
     }
   }

@@ -1,34 +1,39 @@
 {
   "version": 1,
   "projects": {
-    "react-ts": {
-      "root": "apps/react-ts",
-      "sourceRoot": "apps/react-ts/src",
+    "bookstore": {
+      "root": "apps/bookstore",
+      "sourceRoot": "apps/bookstore/src",
       "projectType": "application",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/web:build",
           "options": {
-            "outputPath": "dist/apps/react-ts",
-            "index": "apps/react-ts/src/index.html",
-            "main": "apps/react-ts/src/main.tsx",
-            "polyfills": "apps/react-ts/src/polyfills.ts",
-            "tsConfig": "apps/react-ts/tsconfig.app.json",
+            "outputPath": "dist/apps/bookstore",
+            "index": "apps/bookstore/src/index.html",
+            "main": "apps/bookstore/src/main.tsx",
+            "polyfills": "apps/bookstore/src/polyfills.ts",
+            "tsConfig": "apps/bookstore/tsconfig.app.json",
             "assets": [
-              "apps/react-ts/src/favicon.ico",
-              "apps/react-ts/src/assets"
+              "apps/bookstore/src/favicon.ico",
+              "apps/bookstore/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./libs/shared/assets",
+                "output": "./assets"
+              }
             ],
-            "styles": ["apps/react-ts/src/styles.scss"],
+            "styles": ["apps/bookstore/src/styles.scss"],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/babel"
+            "webpackConfig": "apps/bookstore/webpack.config.js"
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/react-ts/src/environments/environment.ts",
-                  "with": "apps/react-ts/src/environments/environment.prod.ts"
+                  "replace": "apps/bookstore/src/environments/environment.ts",
+                  "with": "apps/bookstore/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -51,11 +56,11 @@
         "serve": {
           "builder": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "react-ts:build"
+            "buildTarget": "bookstore:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "react-ts:build:production"
+              "buildTarget": "bookstore:build:production"
             }
           }
         },
@@ -63,38 +68,38 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "apps/react-ts/.eslintrc",
+            "config": "apps/bookstore/.eslintrc",
             "tsConfig": [
-              "apps/react-ts/tsconfig.app.json",
-              "apps/react-ts/tsconfig.spec.json"
+              "apps/bookstore/tsconfig.app.json",
+              "apps/bookstore/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/react-ts/**"]
+            "exclude": ["**/node_modules/**", "!apps/bookstore/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/react-ts/jest.config.js",
-            "tsConfig": "apps/react-ts/tsconfig.spec.json"
+            "jestConfig": "apps/bookstore/jest.config.js",
+            "tsConfig": "apps/bookstore/tsconfig.spec.json"
           }
         }
       }
     },
-    "react-ts-e2e": {
-      "root": "apps/react-ts-e2e",
-      "sourceRoot": "apps/react-ts-e2e/src",
+    "bookstore-e2e": {
+      "root": "apps/bookstore-e2e",
+      "sourceRoot": "apps/bookstore-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/react-ts-e2e/cypress.json",
-            "tsConfig": "apps/react-ts-e2e/tsconfig.e2e.json",
-            "devServerTarget": "react-ts:serve"
+            "cypressConfig": "apps/bookstore-e2e/cypress.json",
+            "tsConfig": "apps/bookstore-e2e/tsconfig.e2e.json",
+            "devServerTarget": "bookstore:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "react-ts:serve:production"
+              "devServerTarget": "bookstore:serve:production"
             }
           }
         },
@@ -102,9 +107,115 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "apps/react-ts-e2e/.eslintrc",
-            "tsConfig": ["apps/react-ts-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/react-ts-e2e/**"]
+            "config": "apps/bookstore-e2e/.eslintrc",
+            "tsConfig": ["apps/bookstore-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/bookstore-e2e/**"]
+          }
+        }
+      }
+    },
+    "books-feature": {
+      "root": "libs/books/feature",
+      "sourceRoot": "libs/books/feature/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/books/feature/.eslintrc",
+            "tsConfig": [
+              "libs/books/feature/tsconfig.lib.json",
+              "libs/books/feature/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/books/feature/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/books/feature/jest.config.js",
+            "tsConfig": "libs/books/feature/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "ui": {
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/ui/.eslintrc",
+            "tsConfig": [
+              "libs/ui/tsconfig.lib.json",
+              "libs/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "tsConfig": "libs/ui/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "books-data-access": {
+      "root": "libs/books/data-access",
+      "sourceRoot": "libs/books/data-access/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/books/data-access/tsconfig.lib.json",
+              "libs/books/data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/books/data-access/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/books/data-access/jest.config.js",
+            "tsConfig": "libs/books/data-access/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "books-ui": {
+      "root": "libs/books/ui",
+      "sourceRoot": "libs/books/ui/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/books/ui/.eslintrc",
+            "tsConfig": [
+              "libs/books/ui/tsconfig.lib.json",
+              "libs/books/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/books/ui/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/books/ui/jest.config.js",
+            "tsConfig": "libs/books/ui/tsconfig.spec.json"
           }
         }
       }
@@ -126,7 +237,7 @@
     },
     "@nrwl/react": {
       "application": {
-        "style": "scss",
+        "style": "styled",
         "linter": "eslint",
         "babel": true
       },
@@ -164,5 +275,5 @@
       }
     }
   },
-  "defaultProject": "react-ts"
+  "defaultProject": "bookstore"
 }
