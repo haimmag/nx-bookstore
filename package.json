@@ -7,6 +7,7 @@
     "start": "nx serve",
     "build": "nx build",
     "build:lib": "cross-env STANDALONE=false nx build",
+    "debug": "node --nolazy --inspect-brk=9229 node_modules/@nrwl/cli/bin/nx.js build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
@@ -27,6 +28,7 @@
   },
   "private": true,
   "dependencies": {
+    "babel-plugin-react-css-modules": "^5.2.6",
     "document-register-element": "1.13.1",
     "react": "16.10.2",
     "react-dom": "16.10.2",

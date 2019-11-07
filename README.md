@@ -14,10 +14,23 @@ These capabilities include generating applications, libraries, etc as well as th
 
 Below are some plugins which you can add to your workspace:
 
+- [Workspace]
+  - `yarn global add @nrwl/cli`
+  - `yarn create nx-workspace`
+  - `yarn nx serve bookstore`
+  - `yarn nx e2e bookstore-e2e`
 - [React](https://reactjs.org)
   - `npm install --save-dev @nrwl/react`
+  - `nx g @nrwl/react:lib my-lib`
+- [Featue lib]
+  - `nx g lib feature -d books -a bookstore`
+  - `nx g lib ui --no-interactive`
+  - `nx g component GlobalStyles --project ui --export`
+  - `nx g c Footer -p ui -e`
+  - `nx g c --help`
 - Web (no framework frontends)
   - `npm install --save-dev @nrwl/web`
+  - `nx g @nrwl/web:lib data-access --directory books`
 - [Angular](https://angular.io)
   - `npm install --save-dev @nrwl/angular`
 - [Nest](https://nestjs.com)
